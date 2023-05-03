@@ -80,6 +80,8 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                     border-0 
                                     text-white 
                                     hover:opacity-70
+									bg-sky
+									rounded-full
                                     transition
                                 "
 								onClick={handleClose}

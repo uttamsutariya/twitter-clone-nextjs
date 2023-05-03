@@ -19,7 +19,7 @@ const Input = ({ placeholder, value, type, disabled, onChange }: InputProps) => 
                 rounded-md
                 outline-none
                 text-white
-                focus:border-sky-500
+                focus:border-sky
                 focus:border-2
                 transition
                 disabled:bg-neutral-900

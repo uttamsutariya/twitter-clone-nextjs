@@ -1,7 +1,10 @@
-import useLoginModal from "@/hooks/useLoginModal";
 import { useCallback, useState } from "react";
+import { signIn } from "next-auth/react";
 import Input from "../Input";
 import Modal from "../Modal";
+import { toast } from "react-hot-toast";
+
+import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
 const LoginModal = () => {
@@ -12,18 +15,23 @@ const LoginModal = () => {
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit = useCallback(() => {
+	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true);
 
-			// TODO add login
+			await signIn("credentials", {
+				email,
+				password,
+			});
+
+			toast.success("Logged in.");
 
 			loginModal.onClose();
 		} catch (error) {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [loginModal]);
+	}, [loginModal, email, password]);
 
 	const onToggle = useCallback(() => {
 		if (isLoading) return;
@@ -37,6 +45,7 @@ const LoginModal = () => {
 			<Input placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email} disabled={isLoading} />
 			<Input
 				placeholder="Password"
+				type="password"
 				onChange={(e) => setPassword(e.target.value)}
 				value={password}
 				disabled={isLoading}
@@ -51,7 +60,7 @@ const LoginModal = () => {
 				<span
 					onClick={onToggle}
 					className="
-                        text-white 
+                        text-sky
                         cursor-pointer 
                         hover:underline
                     "
