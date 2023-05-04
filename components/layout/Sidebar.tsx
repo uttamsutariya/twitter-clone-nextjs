@@ -21,10 +21,11 @@ const Sidebar = () => {
 			href: "/notifications",
 			icon: BsBellFill,
 			isProtected: true,
+			alert: currentUser?.hasNotification,
 		},
 		{
 			label: "Profile",
-			href: "/user/123",
+			href: `/users/${currentUser?.id}`,
 			icon: FaUser,
 			isProtected: true,
 		},
@@ -42,6 +43,7 @@ const Sidebar = () => {
 							label={item.label}
 							icon={item.icon}
 							isProtected={item.isProtected}
+							alert={item.alert}
 						/>
 					))}
 					{currentUser && <SidebarItem onClick={() => signOut()} label="Logout" icon={BiLogOut} />}
